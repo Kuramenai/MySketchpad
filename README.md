@@ -1,2 +1,2 @@
 # MySketchpad
-A web-based sketchpad
+A web-based version of the sketchpad
