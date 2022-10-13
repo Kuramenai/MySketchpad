@@ -57,8 +57,7 @@ function draw(event){
 //Generate the grid cells and add the necessary event listeners at  website launch 
 function createGridCells()
 {
-    
-    
+       
     for(let i = 0; i < grid_rows_columns*grid_rows_columns ; i++){
     
         grid_cell = document.createElement('div');
