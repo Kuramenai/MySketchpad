@@ -1,9 +1,9 @@
+
 const grid_container = document.querySelector('.grid_container');
 let grid = document.querySelector('.grid');
 
 let startDrawing = false;
-let cell_color = 'orange'
-
+let cell_color = "#333333";
 
 
 let change_grid_size_slider = document.querySelector('.change-grid-size-slider');
@@ -11,6 +11,11 @@ change_grid_size_slider.oninput = getGridSize
 
 let grid_size = 480;
 let grid_rows_columns = 16;
+
+const change_color_btn = document.querySelector('.change-color-btn');
+change_color_btn.oninput = changePenColor
+
+const grid_size_info = document.querySelector('.grid-size-info');
 
 
 //When the user clicks on a cell then start hovering on the whole grid
@@ -104,6 +109,7 @@ function updateGrid(){
     new_grid = createNewGrid();
     grid.remove()
     grid_container.appendChild(new_grid)
+    grid_size_info.textContent = `${grid_rows_columns}x${grid_rows_columns}`
     grid = new_grid
     
 }
@@ -112,6 +118,10 @@ function updateGrid(){
 function getGridSize(){
     grid_rows_columns = this.value
     updateGrid()
+}
+
+function changePenColor(){
+    cell_color = this.value
 }
 
 
