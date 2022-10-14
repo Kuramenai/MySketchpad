@@ -17,6 +17,14 @@ change_color_btn.oninput = changePenColor
 
 const grid_size_info = document.querySelector('.grid-size-info');
 
+const change_drawing_mode_radiobtn1 = document.querySelector('.change-drawing-mode-radiobtn1');
+const change_drawing_mode_radiobtn2 = document.querySelector('.change-drawing-mode-radiobtn2');
+
+const eraser_btn = document.querySelector('.eraser-btn');
+eraser_btn.onclick = setEraseMode;
+
+let eraseMode = false;
+
 
 //When the user clicks on a cell then start hovering on the whole grid
 //while maintaining the mouse left click button pressed down
@@ -26,9 +34,30 @@ const grid_size_info = document.querySelector('.grid-size-info');
 function isStartDrawing(event){
 
     if(event.button == 0){
-        currentCell = event.target
-        currentCell.style.background = cell_color
-        startDrawing = true
+
+        startDrawing = true;
+        currentCell = event.target;
+
+        if(eraseMode){
+            currentCell.style.background = 'whitesmoke'
+        }
+
+        //Normal Mode
+        else if(change_drawing_mode_radiobtn1.checked){
+            currentCell.style.background = cell_color;
+        }
+
+        //Rainbow Mode
+        else if (change_drawing_mode_radiobtn2.checked){
+
+            random_red_value = Math.round(255*(Math.random()));
+            random_green_value = Math.round(255*(Math.random()));
+            random_blue_value = Math.round(255*(Math.random()))
+
+            currentCell.style.background = `rgb(${random_red_value},
+                                                ${random_green_value},
+                                                ${random_blue_value})`;
+        }
     
     }
 
@@ -48,8 +77,32 @@ function isEndDrawing(event){
 //"Drawing while the mouse left click button is pressed down"
 function draw(event){
     if(startDrawing){ 
-        currentCell = event.target
-        currentCell.style.background = cell_color
+
+        currentCell = event.target;
+
+        if(eraseMode){
+            currentCell.style.background = 'whitesmoke'
+        }
+
+        //Normal Mode
+        else if(change_drawing_mode_radiobtn1.checked){
+        
+            currentCell.style.background = cell_color;
+        }
+
+        //Rainbow Mode
+        else if (change_drawing_mode_radiobtn2.checked){
+
+            random_red_value = Math.round(255*(Math.random()));
+            random_green_value = Math.round(255*(Math.random()));
+            random_blue_value = Math.round(255*(Math.random()));
+
+            currentCell.style.background = `rgb(${random_red_value},
+                                                ${random_green_value},
+                                                ${random_blue_value})`;
+
+        }
+
     }
    
 }
@@ -94,7 +147,6 @@ function createNewGrid(){
         grid_cell.addEventListener('mousedown',isStartDrawing)
         grid_cell.addEventListener('mouseenter',draw);
         grid_cell.addEventListener('mouseup',isEndDrawing);
-
     
         grid.appendChild(grid_cell);
     }
@@ -123,6 +175,16 @@ function changePenColor(){
     cell_color = this.value
 }
 
+function setEraseMode(){
+    if(this.classList.contains("active")){
+        this.classList.remove("active");
+        eraseMode=false;
+    }
+    else{
+        this.classList.add("active");
+        eraseMode=true;
+    }
+}
 
 
 createGridCells()
